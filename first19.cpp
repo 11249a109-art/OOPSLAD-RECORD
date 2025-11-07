@@ -1,48 +1,71 @@
-#include <iostream>
-#include <cstring> // for strcpy, strcat, strlen
+#include<iostream>
+#include<conio.h>
+#include<stdio.h>
 using namespace std;
-
-const int sz = 90;
-
-class string1 {
-    char str[sz];
-
+class student
+{
+private:
+char name[20];
+int rno;
 public:
-    string1() {
-        strcpy(str, "");
-    }
-
-    string1(const char s[]) {  // corrected: parameter should be const char[]
-        strcpy(str, s);
-    }
-
-    void display() {
-        cout << str << "\n";
-    }
-
-    string1 operator+(const string1 &s) { // pass by const reference
-        string1 temp;
-        if (strlen(str) + strlen(s.str) < sz) {
-            strcpy(temp.str, str);
-            strcat(temp.str, s.str);
-        } else {
-            cout << "string overflow\n";
-            strcpy(temp.str, ""); // avoid returning uninitialized data
-        }
-        return temp;
-    }
+void getstudent()
+{
+cout<<"enter name of the student=";
+cin>>name;
+cout<<"enter roll number of the student=";
+cin>>rno;
+}
+void displaystudent()
+{
+cout<<"name of the student="<<name;
+cout<<"\nroll number of the student="<<rno;
+}
 };
-
-int main() {
-    string1 s1("Hello "); // fixed initialization syntax
-    string1 s2("World!");
-    string1 s3;
-
-    s3 = s1 + s2;
-
-    s1.display();
-    s2.display();
-    s3.display();
-
-    return 0;
+class test: public student
+{
+protected:
+int math,eng,sci;
+public:
+void gettest()
+{
+getstudent();
+cout<<"enter math marks=";
+cin>>math;
+cout<<"enter english marks=";
+cin>>eng;
+cout<<"enter science marks=";
+cin>>sci;
+}
+void displaytest()
+{
+displaystudent();
+cout<<"\n math marks="<<math;
+cout<<"\n english marks="<<eng;
+cout<<"\nscience marks="<<sci;
+}
+};
+class result : public test
+{
+private:
+int total,avg;
+public:
+void getresult()
+{
+gettest();
+total=math+eng+sci;
+avg=total/3;
+}
+void displayresult()
+{
+displaytest();
+cout<<"\nTotal Marks="<<total;
+cout<<"\n Average marks="<<avg;
+}
+};
+int main()
+{
+result r1;
+r1.getresult();
+r1.displayresult();
+getch();
 }
